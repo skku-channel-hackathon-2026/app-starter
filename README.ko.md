@@ -142,3 +142,7 @@ wam/
 현재 계약은 SDK guide와 reference에서 확인하고, 완성된 server/WAM 구현은 이 저장소에서
 확인하세요. SDK Quickstart도 실행 가능한 TypeScript 코드가 필요한 단계에서 이 튜토리얼을
 연결합니다.
+
+## 성균관대 해커톤
+
+팀별 Vercel 배포와 개발 안내는 [해커톤 가이드](HACKATHON.ko.md)를 참고하세요.

@@ -2,27 +2,11 @@ import "reflect-metadata";
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { Logger } from "@nestjs/common";
-import { NestFactory } from "@nestjs/core";
-import type { NestExpressApplication } from "@nestjs/platform-express";
-import { AppModule } from "./src/app.module.js";
-import { rewriteAppStoreFunctionUrl } from "./src/function-endpoint.js";
+import { createApplication } from "./src/application.js";
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-    rawBody: true,
-  });
+  const app = await createApplication();
   app.enableShutdownHooks();
-  app.use(
-    (
-      request: { method: string; url: string },
-      _response: unknown,
-      next: () => void,
-    ) => {
-      request.url = rewriteAppStoreFunctionUrl(request.method, request.url);
-      next();
-    },
-  );
-
   const wamDist = resolve(process.cwd(), "../wam/dist");
   if (existsSync(wamDist)) {
     app.useStaticAssets(wamDist, { prefix: "/resource/wam/tutorial" });

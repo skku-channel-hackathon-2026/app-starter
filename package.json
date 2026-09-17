@@ -15,7 +15,10 @@
     "format:check": "prettier --check . --ignore-path .gitignore --ignore-path .prettierignore",
     "dev:server": "pnpm --filter @tutorial/shared build && pnpm --filter @tutorial/server dev",
     "dev:wam": "pnpm --filter @tutorial/shared build && pnpm --filter @tutorial/wam dev",
-    "start": "pnpm --filter @tutorial/server start"
+    "start": "pnpm --filter @tutorial/server start",
+    "build:vercel": "pnpm build && node scripts/build-vercel.mjs",
+    "register": "pnpm --filter @tutorial/server register",
+    "test:vercel": "node scripts/smoke-vercel.mjs"
   },
   "devDependencies": {
     "prettier": "^3.2.5"

@@ -12,6 +12,9 @@ function required(name: string): string {
 export const appId = required("APP_ID");
 export const appSecret = required("APP_SECRET");
 export const skipSignatureVerification = process.env.SKIP_SIGNATURE_VERIFICATION === "true";
+if (process.env.VERCEL === "1" && skipSignatureVerification) {
+  throw new Error("Signature verification cannot be disabled on Vercel");
+}
 export const signingKey = skipSignatureVerification ? process.env.SIGNING_KEY ?? "" : required("SIGNING_KEY");
 
 export const channelAppOptions: ChannelAppModuleOptions = {
@@ -19,6 +22,6 @@ export const channelAppOptions: ChannelAppModuleOptions = {
   appSecret,
   signingKey,
   appStoreUrl: process.env.APP_STORE_URL ?? "https://app-store.channel.io",
-  autoRegister: true,
+  autoRegister: process.env.VERCEL !== "1" && process.env.AUTO_REGISTER !== "false",
   skipSignatureVerification,
 };
